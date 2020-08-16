@@ -4,14 +4,13 @@ import (
 	"sync"
 	"time"
 
-	"github.com/albuquerq/stone-desafio-go/pkg/domain/errors"
-
 	"github.com/albuquerq/stone-desafio-go/pkg/domain/account"
+	"github.com/albuquerq/stone-desafio-go/pkg/domain/errors"
 	"github.com/albuquerq/stone-desafio-go/pkg/infraestructure/utils"
 	"github.com/sirupsen/logrus"
 )
 
-type memAccountRepository struct {
+type memAccountRepo struct {
 	accounts []account.Account
 	mux      sync.Mutex
 	log      *logrus.Entry
@@ -19,13 +18,13 @@ type memAccountRepository struct {
 
 // NewAccoutRepository returns an in-memory repository for account.Account.
 func NewAccoutRepository(logger *logrus.Logger) account.Repository {
-	return &memAccountRepository{
-		log:      logger.WithField("source", "memAccountRepository"),
+	return &memAccountRepo{
+		log:      logger.WithField("source", "memAccountRepo"),
 		accounts: []account.Account{},
 	}
 }
 
-func (mar *memAccountRepository) Store(ac *account.Account) error {
+func (mar *memAccountRepo) Store(ac *account.Account) error {
 	if ac.ID == "" {
 		err := errors.ErrNoHasUniqueIdentity
 		mar.log.WithError(err).Error("account ID not defined")
@@ -45,7 +44,7 @@ func (mar *memAccountRepository) Store(ac *account.Account) error {
 	return nil
 }
 
-func (mar *memAccountRepository) UpdateBalance(ac account.Account) error {
+func (mar *memAccountRepo) UpdateBalance(ac account.Account) error {
 	if ac.ID == "" {
 		err := errors.ErrNoHasUniqueIdentity
 		mar.log.WithError(err).WithField("accountID", ac.ID)
@@ -67,7 +66,7 @@ func (mar *memAccountRepository) UpdateBalance(ac account.Account) error {
 	return nil
 }
 
-func (mar *memAccountRepository) indexOf(accountID string) int {
+func (mar *memAccountRepo) indexOf(accountID string) int {
 	mar.mux.Lock()
 	defer mar.mux.Unlock()
 
@@ -79,7 +78,7 @@ func (mar *memAccountRepository) indexOf(accountID string) int {
 	return -1
 }
 
-func (mar *memAccountRepository) GetByID(acID string) (account.Account, error) {
+func (mar *memAccountRepo) GetByID(acID string) (account.Account, error) {
 	if acID == "" {
 		err := errors.ErrNoHasUniqueIdentity
 		mar.log.WithError(err).Error("accountID", acID)
@@ -100,7 +99,7 @@ func (mar *memAccountRepository) GetByID(acID string) (account.Account, error) {
 	return ac, nil
 }
 
-func (mar *memAccountRepository) ListAll() ([]account.Account, error) {
+func (mar *memAccountRepo) ListAll() ([]account.Account, error) {
 	mar.mux.Lock()
 	defer mar.mux.Unlock()
 
@@ -111,6 +110,6 @@ func (mar *memAccountRepository) ListAll() ([]account.Account, error) {
 	return accounts, nil
 }
 
-func (mar *memAccountRepository) GenerateIdentifier() string {
+func (mar *memAccountRepo) GenerateIdentifier() string {
 	return utils.GenUUID()
 }

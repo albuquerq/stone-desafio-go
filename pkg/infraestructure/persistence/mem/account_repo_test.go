@@ -1,15 +1,14 @@
-package persistence
+package mem
 
 import (
 	"math/rand"
 	"testing"
 	"time"
 
-	"github.com/albuquerq/stone-desafio-go/pkg/domain/errors"
-
 	"github.com/albuquerq/stone-desafio-go/pkg/domain/account"
-	"github.com/albuquerq/stone-desafio-go/pkg/infraestructure/persistence/mem"
+	"github.com/albuquerq/stone-desafio-go/pkg/domain/errors"
 	"github.com/albuquerq/stone-desafio-go/pkg/infraestructure/utils"
+
 	"github.com/sirupsen/logrus"
 	"github.com/stretchr/testify/assert"
 )
@@ -75,7 +74,7 @@ var failsStoreTestCases = []testCaseSingle{
 
 var (
 	logger               = logrus.New()
-	memAccountRepository = mem.NewAccoutRepository(logger)
+	memAccountRepository = NewAccoutRepository(logger)
 )
 
 // Black-box test.
