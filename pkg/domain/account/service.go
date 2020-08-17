@@ -7,9 +7,3 @@ type Service interface {
 	AccountBalance(string) (Account, error)
 	ListAccounts() ([]Account, error)
 }
-
-// ValidationService is responsible for validating account data.
-type ValidationService interface {
-	ValidateForCreation(*Account) error
-	ValidateForTransferOrigin(*Account) error
-}
