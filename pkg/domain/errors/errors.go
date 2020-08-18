@@ -14,6 +14,7 @@ var (
 	ErrTransferNotFound            = fmt.Errorf("%w: %v", ErrDomain, "transfer not found")
 	ErrTransferNotAllowed          = fmt.Errorf("%w: %v", ErrDomain, "transfer not allowed")
 	ErrTransferInsufficientBalance = fmt.Errorf("%w: %v", ErrTransferNotAllowed, "the origin account has insufficient balance")
-	ErrTransferMissingAmount       = fmt.Errorf("%w: %v", ErrTransferNotAllowed, "missing amount")
+	ErrTransferMissingData         = fmt.Errorf("%w: %v", ErrTransferNotAllowed, "missing data")
+	ErrTransferMissingAmount       = fmt.Errorf("%w: %v", ErrTransferMissingData, "missing amount")
 	ErrTransferBetweenSameAccount  = fmt.Errorf("%w: %v", ErrTransferNotAllowed, "transfer between the same account")
 )
