@@ -4,6 +4,7 @@ package account
 type Service interface {
 	CreateAccount(*Account) error
 	UpdateBalance(*Account) error
-	AccountBalance(string) (Account, error)
+	AccountBalance(string) (BalanceValue, error)
+	GetAccount(string) (Account, error)
 	ListAccounts() ([]Account, error)
 }

@@ -13,3 +13,8 @@ type InputValue struct {
 func (icv InputValue) Validate(vs InputCreationValueValidationStrategy) error {
 	return vs.Validate(icv)
 }
+
+// BalanceValue to get the account balance.
+type BalanceValue struct {
+	Balance int `json:"balance"`
+}
