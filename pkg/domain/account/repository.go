@@ -1,5 +1,7 @@
 package account
 
+import "database/sql/driver"
+
 // Repository manages account persistence.
 type Repository interface {
 	Store(*Account) error
@@ -7,4 +9,5 @@ type Repository interface {
 	GetByID(string) (Account, error)
 	ListAll() ([]Account, error)
 	GenerateIdentifier() string
+	WithTx(driver.Tx) Repository
 }

@@ -1,14 +1,15 @@
 package mem
 
 import (
+	"database/sql/driver"
 	"sync"
 	"time"
+
+	"github.com/sirupsen/logrus"
 
 	"github.com/albuquerq/stone-desafio-go/pkg/domain/errors"
 	"github.com/albuquerq/stone-desafio-go/pkg/domain/transfer"
 	"github.com/albuquerq/stone-desafio-go/pkg/infraestructure/utils"
-
-	"github.com/sirupsen/logrus"
 )
 
 type memTransferRepo struct {
@@ -84,4 +85,8 @@ func (mtr *memTransferRepo) ListByAccountID(accountID string) ([]transfer.Transf
 
 func (mtr *memTransferRepo) GenerateIndetifier() string {
 	return utils.GenUUID()
+}
+
+func (mtr *memTransferRepo) WithTx(tx driver.Tx) transfer.Repository {
+	return mtr
 }

@@ -1,6 +1,7 @@
 package mem
 
 import (
+	"database/sql/driver"
 	"sync"
 	"time"
 
@@ -112,4 +113,9 @@ func (mar *memAccountRepo) ListAll() ([]account.Account, error) {
 
 func (mar *memAccountRepo) GenerateIdentifier() string {
 	return utils.GenUUID()
+}
+
+func (mar *memAccountRepo) WithTx(tx driver.Tx) account.Repository {
+	mar.log.Debug("memory transactions are not applicable")
+	return mar
 }
