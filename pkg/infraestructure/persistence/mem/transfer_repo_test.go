@@ -6,7 +6,7 @@ import (
 	"github.com/stretchr/testify/assert"
 
 	"github.com/albuquerq/stone-desafio-go/pkg/domain/transfer"
-	"github.com/albuquerq/stone-desafio-go/pkg/infraestructure/utils"
+	"github.com/albuquerq/stone-desafio-go/pkg/infraestructure/common"
 )
 
 type transferRepoTestCase struct {
@@ -20,9 +20,9 @@ var (
 		{
 			Description: "Valid transfer",
 			In: transfer.Transfer{
-				ID:                   utils.GenUUID(),
-				AccountOriginID:      utils.GenUUID(),
-				AccountDestinationID: utils.GenUUID(),
+				ID:                   common.GenUUID(),
+				AccountOriginID:      common.GenUUID(),
+				AccountDestinationID: common.GenUUID(),
 				Amount:               100,
 			},
 		},
@@ -55,7 +55,7 @@ func TestTransferRepository(t *testing.T) {
 	})
 
 	t.Run("Transfer not found", func(t *testing.T) {
-		_, err := transferMemRepository.GetById(utils.GenUUID())
+		_, err := transferMemRepository.GetByID(common.GenUUID())
 		assert.Error(t, err)
 	})
 

@@ -9,7 +9,7 @@ import (
 
 	"github.com/albuquerq/stone-desafio-go/pkg/domain/account"
 	"github.com/albuquerq/stone-desafio-go/pkg/domain/errors"
-	"github.com/albuquerq/stone-desafio-go/pkg/infraestructure/utils"
+	"github.com/albuquerq/stone-desafio-go/pkg/infraestructure/common"
 )
 
 type memAccountRepo struct {
@@ -151,7 +151,7 @@ func (mar *memAccountRepo) ListAll() ([]account.Account, error) {
 }
 
 func (mar *memAccountRepo) GenerateIdentifier() string {
-	return utils.GenUUID()
+	return common.GenUUID()
 }
 
 func (mar *memAccountRepo) WithTx(tx driver.Tx) account.Repository {

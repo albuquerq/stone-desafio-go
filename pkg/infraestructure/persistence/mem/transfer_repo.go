@@ -9,7 +9,7 @@ import (
 
 	"github.com/albuquerq/stone-desafio-go/pkg/domain/errors"
 	"github.com/albuquerq/stone-desafio-go/pkg/domain/transfer"
-	"github.com/albuquerq/stone-desafio-go/pkg/infraestructure/utils"
+	"github.com/albuquerq/stone-desafio-go/pkg/infraestructure/common"
 )
 
 type memTransferRepo struct {
@@ -85,7 +85,7 @@ func (mtr *memTransferRepo) ListByAccountID(accountID string) ([]transfer.Transf
 }
 
 func (mtr *memTransferRepo) GenerateIndetifier() string {
-	return utils.GenUUID()
+	return common.GenUUID()
 }
 
 func (mtr *memTransferRepo) WithTx(tx driver.Tx) transfer.Repository {

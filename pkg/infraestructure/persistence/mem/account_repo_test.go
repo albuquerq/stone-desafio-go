@@ -7,7 +7,7 @@ import (
 
 	"github.com/albuquerq/stone-desafio-go/pkg/domain/account"
 	"github.com/albuquerq/stone-desafio-go/pkg/domain/errors"
-	"github.com/albuquerq/stone-desafio-go/pkg/infraestructure/utils"
+	"github.com/albuquerq/stone-desafio-go/pkg/infraestructure/common"
 
 	"github.com/stretchr/testify/assert"
 )
@@ -28,7 +28,7 @@ var passStoreTestCases = []testCaseSingle{
 	{
 		Case: "Valid account",
 		In: account.Account{
-			ID:      utils.GenUUID(),
+			ID:      common.GenUUID(),
 			Name:    "Jon Due",
 			Balance: 0,
 			CPF:     "00000000003",
@@ -39,7 +39,7 @@ var passStoreTestCases = []testCaseSingle{
 	{
 		Case: "With the CreatedAt field defined, it ignores and replaces by insertion time",
 		In: account.Account{
-			ID:        utils.GenUUID(),
+			ID:        common.GenUUID(),
 			Name:      "Jon Due 2",
 			Balance:   0,
 			CPF:       "00000004000",
@@ -64,7 +64,7 @@ var failsStoreTestCases = []testCaseSingle{
 	{
 		Case: "Not stored account",
 		In: account.Account{
-			ID:   utils.GenUUID(),
+			ID:   common.GenUUID(),
 			Name: "Jon Due 5",
 		},
 		ExpectedError: errors.ErrAccountNotFound,
