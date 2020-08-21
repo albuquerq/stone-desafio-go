@@ -19,9 +19,9 @@ type memAccountRepo struct {
 }
 
 // NewAccoutRepository returns an in-memory repository for account.Account.
-func NewAccoutRepository(logger *logrus.Logger) account.Repository {
+func NewAccoutRepository() account.Repository {
 	return &memAccountRepo{
-		log:      logger.WithField("source", "memAccountRepo"),
+		log:      common.Logger().WithField("source", "memAccountRepo"),
 		accounts: []account.Account{},
 	}
 }

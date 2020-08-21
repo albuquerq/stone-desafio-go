@@ -19,9 +19,9 @@ type memTransferRepo struct {
 }
 
 // NewTransferRepository return a new in-memory transfer.Repository.
-func NewTransferRepository(log *logrus.Logger) transfer.Repository {
+func NewTransferRepository() transfer.Repository {
 	return &memTransferRepo{
-		log:       log.WithField("source", "memTransferRepo"),
+		log:       common.Logger().WithField("source", "memTransferRepo"),
 		transfers: []transfer.Transfer{},
 	}
 }

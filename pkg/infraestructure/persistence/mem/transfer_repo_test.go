@@ -30,7 +30,7 @@ var (
 )
 
 var (
-	transferMemRepository = NewTransferRepository(logrus.New())
+	transferMemRepository = NewTransferRepository()
 )
 
 func TestTransferRepository(t *testing.T) {

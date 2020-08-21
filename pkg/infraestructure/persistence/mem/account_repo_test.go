@@ -72,7 +72,7 @@ var failsStoreTestCases = []testCaseSingle{
 }
 
 var (
-	logger               = logrus.New()
+	memAccountRepository = NewAccoutRepository()
 )
 
 // Black-box test.
