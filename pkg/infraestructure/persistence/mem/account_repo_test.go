@@ -9,7 +9,6 @@ import (
 	"github.com/albuquerq/stone-desafio-go/pkg/domain/errors"
 	"github.com/albuquerq/stone-desafio-go/pkg/infraestructure/utils"
 
-	"github.com/sirupsen/logrus"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -32,7 +31,7 @@ var passStoreTestCases = []testCaseSingle{
 			ID:      utils.GenUUID(),
 			Name:    "Jon Due",
 			Balance: 0,
-			CPF:     "00000000000",
+			CPF:     "00000000003",
 			Secret:  "a secret",
 		},
 		ExpectedError: nil,
@@ -43,7 +42,7 @@ var passStoreTestCases = []testCaseSingle{
 			ID:        utils.GenUUID(),
 			Name:      "Jon Due 2",
 			Balance:   0,
-			CPF:       "00000000000",
+			CPF:       "00000004000",
 			Secret:    "a secret",
 			CreatedAt: time.Now().Add(2 * time.Hour),
 		},
@@ -74,7 +73,6 @@ var failsStoreTestCases = []testCaseSingle{
 
 var (
 	logger               = logrus.New()
-	memAccountRepository = NewAccoutRepository(logger)
 )
 
 // Black-box test.
@@ -89,7 +87,7 @@ func TestAccountRepository_Store_And_GetByID(t *testing.T) {
 			}
 		})
 
-		t.Run("account.Repository.GetByID test", func(t *testing.T) {
+		t.Run("account.Repository.GetByID and GetByCPF test", func(t *testing.T) {
 			for _, tc := range passStoreTestCases {
 				t.Log(tc.Case)
 				ac, err := memAccountRepository.GetByID(tc.In.ID)
@@ -97,6 +95,14 @@ func TestAccountRepository_Store_And_GetByID(t *testing.T) {
 				assert.NoError(t, err)
 
 				assert.Equal(t, tc.In, ac)
+			}
+
+			for _, tc := range passStoreTestCases {
+				t.Log(tc.Case)
+				ac, err := memAccountRepository.GetByCPF(tc.In.CPF)
+
+				assert.NoError(t, err)
+				assert.Equal(t, tc.In.CPF, ac.CPF)
 			}
 		})
 	})

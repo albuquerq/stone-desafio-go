@@ -3,7 +3,6 @@ package mem
 import (
 	"testing"
 
-	"github.com/sirupsen/logrus"
 	"github.com/stretchr/testify/assert"
 
 	"github.com/albuquerq/stone-desafio-go/pkg/domain/transfer"
@@ -46,7 +45,7 @@ func TestTransferRepository(t *testing.T) {
 
 			assert.NotEqual(t, initCreatedDate, tc.In.CreatedAt)
 
-			tr2, err := transferMemRepository.GetById(tc.In.ID)
+			tr2, err := transferMemRepository.GetByID(tc.In.ID)
 
 			assert.NoError(t, err)
 

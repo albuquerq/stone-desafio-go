@@ -38,12 +38,13 @@ func (mtr *memTransferRepo) Store(tr *transfer.Transfer) error {
 	return nil
 }
 
-func (mtr *memTransferRepo) GetById(transferID string) (tr transfer.Transfer, err error) {
+func (mtr *memTransferRepo) GetByID(transferID string) (tr transfer.Transfer, err error) {
+	log := mtr.log.WithField("op", "GetById")
 
 	index := mtr.indexOf(transferID)
 	if index < 0 {
 		err = errors.ErrTransferNotFound
-		mtr.log.WithError(err).WithField("transferID", transferID)
+		log.WithError(err).WithField("transferID", transferID)
 		return
 	}
 
