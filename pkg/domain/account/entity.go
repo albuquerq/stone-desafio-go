@@ -7,7 +7,7 @@ type Account struct {
 	ID     string `json:"id"`
 	Name   string `json:"name"`
 	CPF    string `json:"cpf"`
-	Secret string `json:"secret"`
+	Secret string `json:"secret,omitempty"`
 	// Balance in Brazilian real cents BLR.
 	Balance   int       `json:"balance"`
 	CreatedAt time.Time `json:"created_at"`
