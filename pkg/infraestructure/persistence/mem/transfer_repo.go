@@ -84,7 +84,7 @@ func (mtr *memTransferRepo) ListByAccountID(accountID string) ([]transfer.Transf
 	return transfers, nil
 }
 
-func (mtr *memTransferRepo) GenerateIndetifier() string {
+func (mtr *memTransferRepo) GenerateIdentifier() string {
 	return common.GenUUID()
 }
 

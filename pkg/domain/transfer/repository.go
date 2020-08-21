@@ -7,6 +7,6 @@ type Repository interface {
 	Store(*Transfer) error
 	GetByID(string) (Transfer, error)
 	ListByAccountID(string) ([]Transfer, error)
-	GenerateIndetifier() string
+	GenerateIdentifier() string
 	WithTx(driver.Tx) Repository
 }
