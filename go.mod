@@ -3,6 +3,7 @@ module github.com/albuquerq/stone-desafio-go
 go 1.13
 
 require (
+	github.com/go-ozzo/ozzo-validation/v4 v4.2.2
 	github.com/google/uuid v1.1.1
 	github.com/kr/pretty v0.1.0 // indirect
 	github.com/sirupsen/logrus v1.6.0
