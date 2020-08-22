@@ -11,7 +11,7 @@ import (
 )
 
 var (
-	accessServiceVar access.Service = NewAccessService(repoRegistry.AccountRepository()) // repoRegistry defined in "account_service_test.go" file.
+	accessServiceVar access.Service = NewAccessService(repoRegistry) // repoRegistry defined in "account_service_test.go" file.
 )
 
 func TestAcessService(t *testing.T) {

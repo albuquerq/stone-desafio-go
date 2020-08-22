@@ -3,6 +3,7 @@ package application
 import (
 	"github.com/sirupsen/logrus"
 
+	"github.com/albuquerq/stone-desafio-go/pkg/domain"
 	"github.com/albuquerq/stone-desafio-go/pkg/domain/access"
 	"github.com/albuquerq/stone-desafio-go/pkg/domain/account"
 	"github.com/albuquerq/stone-desafio-go/pkg/domain/errors"
@@ -16,10 +17,10 @@ type accessService struct {
 }
 
 // NewAccessService returns a new access service.
-func NewAccessService(acRepository account.Repository) access.Service {
+func NewAccessService(repoRegistry domain.RepositoryRegistry) access.Service {
 	return &accessService{
 		log:               common.Logger().WithField("source", "accessService"),
-		accountRepository: acRepository,
+		accountRepository: repoRegistry.AccountRepository(),
 	}
 }
 
