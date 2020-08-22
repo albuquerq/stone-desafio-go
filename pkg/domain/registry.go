@@ -21,3 +21,8 @@ type ServiceRegistry interface {
 	AccountService() account.Service
 	TransferService() transfer.Service
 }
+
+type Registry interface {
+	RepositoryRegistry
+	ServiceRegistry
+}
