@@ -3,6 +3,8 @@ module github.com/albuquerq/stone-desafio-go
 go 1.13
 
 require (
+	github.com/dgrijalva/jwt-go v3.2.0+incompatible
+	github.com/go-chi/chi v4.1.2+incompatible
 	github.com/go-ozzo/ozzo-validation/v4 v4.2.2
 	github.com/google/uuid v1.1.1
 	github.com/kr/pretty v0.1.0 // indirect
