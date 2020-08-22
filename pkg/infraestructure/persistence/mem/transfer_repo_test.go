@@ -67,7 +67,7 @@ func TestTransferRepository(t *testing.T) {
 	})
 
 	t.Run("Test generate id", func(t *testing.T) {
-		id := transferMemRepository.GenerateIndetifier()
+		id := transferMemRepository.GenerateIdentifier()
 		assert.NotEmpty(t, id)
 	})
 
