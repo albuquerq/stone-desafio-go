@@ -1,6 +1,8 @@
 package application
 
 import (
+	goerrors "errors"
+
 	"github.com/sirupsen/logrus"
 
 	"github.com/albuquerq/stone-desafio-go/pkg/domain"
@@ -52,13 +54,19 @@ func (ts *transferService) Transfer(fromID string, toID string, amount int) (tr 
 
 	acFrom, err := acRepository.GetByID(fromID)
 	if err != nil {
-		log.WithError(err).Error("account origin not found")
+		log.WithError(err).Error("origin account not found")
+		if goerrors.Is(err, errors.ErrAccountNotFound) {
+			err = errors.ErrTransferAccountOriginNotFound
+		}
 		return
 	}
 
 	acTo, err := acRepository.GetByID(toID)
 	if err != nil {
-		log.WithError(err).Error("account destination not found")
+		log.WithError(err).Error("destination account not found")
+		if goerrors.Is(err, errors.ErrAccountNotFound) {
+			err = errors.ErrTransferAccountDestinationNotFound
+		}
 		return
 	}
 
