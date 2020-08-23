@@ -24,6 +24,7 @@ var allowedHeaders = strings.Join([]string{
 	"Authorization",
 }, ", ")
 
+// CORS middleware for REST API handler.
 func CORS(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Add("Access-Control-Allow-Origin", "*")
@@ -41,6 +42,7 @@ func CORS(next http.Handler) http.Handler {
 	})
 }
 
+// AccountAccessCtxMiddleware obtain encrypted data from the jwt token and add to the request context.
 func AccountAccessCtxMiddleware(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		ah := r.Header.Get("Authorization")

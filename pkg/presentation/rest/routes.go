@@ -6,6 +6,7 @@ import (
 	"github.com/go-chi/chi"
 )
 
+// DefineRoutes defines API endpoints and middlewares.
 func (h *Handler) DefineRoutes() {
 
 	mux := chi.NewRouter()

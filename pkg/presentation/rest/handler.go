@@ -33,6 +33,7 @@ func (h *Handler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	h.handler.ServeHTTP(w, r)
 }
 
+// WrapControl returns handler functions from custom API controls.
 func (h *Handler) WrapControl(fn func(w http.ResponseWriter, r *http.Request) Response) http.HandlerFunc {
 
 	return func(w http.ResponseWriter, r *http.Request) {

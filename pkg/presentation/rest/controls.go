@@ -20,6 +20,7 @@ type tokenResponse struct {
 	Token string `json:"token"`
 }
 
+// Login makes login and return jwt token.
 func (h *Handler) Login(w http.ResponseWriter, r *http.Request) (resp Response) {
 	var cred access.Credential
 
@@ -78,11 +79,7 @@ func (h *Handler) Login(w http.ResponseWriter, r *http.Request) (resp Response) 
 	return
 }
 
-// func (h *Handler) AccountGet(w http.ResponseWriter, r *http.Request) (resp Response) {
-// 	panic("not implemented")
-// 	return
-// }
-
+// AccountCreate creates a accounts.
 func (h *Handler) AccountCreate(w http.ResponseWriter, r *http.Request) (resp Response) {
 
 	var acv account.InputValue
@@ -123,6 +120,7 @@ func (h *Handler) AccountCreate(w http.ResponseWriter, r *http.Request) (resp Re
 	return
 }
 
+// AccountBalance gets the account balance.
 func (h *Handler) AccountBalance(w http.ResponseWriter, r *http.Request) (resp Response) {
 
 	accountID, exists := h.getRouteParam(r, "accountID")
@@ -155,6 +153,7 @@ func (h *Handler) AccountBalance(w http.ResponseWriter, r *http.Request) (resp R
 	return
 }
 
+// AccountList returns stored accounts.
 func (h *Handler) AccountList(w http.ResponseWriter, r *http.Request) (resp Response) {
 	var err error
 
@@ -173,6 +172,7 @@ func (h *Handler) AccountList(w http.ResponseWriter, r *http.Request) (resp Resp
 	return
 }
 
+// AccountTransferList returns transfers to the session account.
 func (h *Handler) AccountTransferList(w http.ResponseWriter, r *http.Request) (resp Response) {
 	var err error
 
@@ -203,6 +203,7 @@ func (h *Handler) AccountTransferList(w http.ResponseWriter, r *http.Request) (r
 	return
 }
 
+// TransferCreate makes a transfer.
 func (h *Handler) TransferCreate(w http.ResponseWriter, r *http.Request) (resp Response) {
 	var tv transfer.InputValue
 
