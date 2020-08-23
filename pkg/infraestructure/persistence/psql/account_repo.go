@@ -223,6 +223,8 @@ func (pgacr *pgAccountRepo) ListAll() (accounts []account.Account, err error) {
 			created_at
 		FROM
 			accounts
+		ORDER BY
+			created_at
 	`
 
 	stmt, _, err := pgacr.stmt(cmd)
