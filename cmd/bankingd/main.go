@@ -9,15 +9,22 @@ import (
 
 	"github.com/albuquerq/stone-desafio-go/pkg/application"
 	"github.com/albuquerq/stone-desafio-go/pkg/infraestructure/common"
-	"github.com/albuquerq/stone-desafio-go/pkg/infraestructure/persistence/mem"
+	"github.com/albuquerq/stone-desafio-go/pkg/infraestructure/persistence/pgql"
 	"github.com/albuquerq/stone-desafio-go/pkg/presentation/rest"
+	// "github.com/albuquerq/stone-desafio-go/pkg/infraestructure/persistence/mem"
 )
 
 func main() {
 
-	const addr = ":8080"
+	const addr = ":8081"
 
-	appRegistry := application.NewRegistry(mem.NewRepositoryRegistry())
+	db, err := pgql.Connect("postgres://teste:senha@172.17.0.2/banking-test?sslmode=disable")
+	if err != nil {
+		common.Logger().Fatal(err)
+	}
+
+	//appRegistry := application.NewRegistry(mem.NewRepositoryRegistry())
+	appRegistry := application.NewRegistry(pgql.NewRepositoryRegistry(db))
 
 	handler := rest.New(appRegistry)
 
@@ -41,7 +48,7 @@ func main() {
 
 	common.Logger().Info("Stoping server")
 
-	err := server.Shutdown(context.Background())
+	err = server.Shutdown(context.Background())
 	if err != nil {
 		common.Logger().WithError(err).Error("Server shutdown failed")
 	}
