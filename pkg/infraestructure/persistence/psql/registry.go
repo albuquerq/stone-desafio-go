@@ -1,4 +1,4 @@
-package pgql
+package psql
 
 import (
 	"database/sql"
