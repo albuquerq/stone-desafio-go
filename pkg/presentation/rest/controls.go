@@ -64,7 +64,7 @@ func (h *Handler) Login(w http.ResponseWriter, r *http.Request) (resp Response) 
 		},
 	)
 
-	strToken, err := token.SignedString([]byte("my secret"))
+	strToken, err := token.SignedString([]byte(getTokenSecret()))
 	if err != nil {
 		resp.Error = &Error{
 			Code:    http.StatusInternalServerError,

@@ -64,7 +64,7 @@ func AccountAccessCtxMiddleware(next http.Handler) http.Handler {
 				http.Error(w, fmt.Sprintf("unexpected signing method: %v", token.Header["alg"]), http.StatusBadRequest)
 			}
 
-			return []byte("my secret"), nil
+			return getTokenSecret(), nil
 		})
 		if err != nil {
 			http.Error(w, "error on parse jwt token", http.StatusInternalServerError)
