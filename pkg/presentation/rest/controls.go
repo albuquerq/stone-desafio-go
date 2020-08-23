@@ -108,6 +108,11 @@ func (h *Handler) AccountCreate(w http.ResponseWriter, r *http.Request) (resp Re
 			Message: err.Error(),
 			GoErr:   err,
 		}
+
+		if err == errors.ErrAccountCPFAlreadyExists {
+			resp.Error.Code = http.StatusConflict
+		}
+
 		return
 	}
 

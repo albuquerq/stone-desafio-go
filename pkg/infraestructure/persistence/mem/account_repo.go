@@ -34,7 +34,10 @@ func (mar *memAccountRepo) Store(ac *account.Account) error {
 		log.WithError(err).Error("account ID not defined")
 		return err
 	}
-	//mar.log.Infof("Storing a account %v", ac.ID)
+
+	if mar.indexOfCPF(ac.CPF) < 0 {
+		return errors.ErrAccountCPFAlreadyExists
+	}
 
 	ac.CreatedAt = time.Now()
 

@@ -11,6 +11,7 @@ var (
 	ErrInvalidAccessCredentials           = fmt.Errorf("%w: %v", ErrDomain, "invalid access credentials")
 	ErrNoHasUniqueIdentity                = fmt.Errorf("%w: %v", ErrDomain, "no has unique identity")
 	ErrAccountNotFound                    = fmt.Errorf("%w: %v", ErrDomain, "account not found")
+	ErrAccountCPFAlreadyExists            = fmt.Errorf("%w: %v", ErrDomain, "there is already an account with this cpf")
 	ErrTransferNotFound                   = fmt.Errorf("%w: %v", ErrDomain, "transfer not found")
 	ErrTransferNotAllowed                 = fmt.Errorf("%w: %v", ErrDomain, "transfer not allowed")
 	ErrTransferInsufficientBalance        = fmt.Errorf("%w: %v", ErrTransferNotAllowed, "the origin account has insufficient balance")
