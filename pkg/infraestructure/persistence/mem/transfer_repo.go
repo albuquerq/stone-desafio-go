@@ -44,7 +44,7 @@ func (mtr *memTransferRepo) GetByID(transferID string) (tr transfer.Transfer, er
 	index := mtr.indexOf(transferID)
 	if index < 0 {
 		err = errors.ErrTransferNotFound
-		log.WithError(err).WithField("transferID", transferID)
+		log.WithError(err).WithField("transfer_id", transferID)
 		return
 	}
 

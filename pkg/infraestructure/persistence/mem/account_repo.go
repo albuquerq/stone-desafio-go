@@ -52,14 +52,14 @@ func (mar *memAccountRepo) UpdateBalance(ac account.Account) error {
 
 	if ac.ID == "" {
 		err := errors.ErrNoHasUniqueIdentity
-		log.WithError(err).WithField("accountID", ac.ID)
+		log.WithError(err).WithField("account_id", ac.ID)
 		return err
 	}
 
 	index := mar.indexOf(ac.ID)
 	if index < 0 {
 		err := errors.ErrAccountNotFound
-		log.WithError(err).WithField("accountID", ac.ID)
+		log.WithError(err).WithField("account_id", ac.ID)
 		return err
 	}
 
@@ -99,14 +99,14 @@ func (mar *memAccountRepo) GetByID(acID string) (ac account.Account, err error) 
 
 	if acID == "" {
 		err = errors.ErrNoHasUniqueIdentity
-		log.WithError(err).Error("accountID", acID)
+		log.WithError(err).Error("account_id", acID)
 		return
 	}
 
 	index := mar.indexOf(acID)
 	if index < 0 {
 		err = errors.ErrAccountNotFound
-		log.WithError(err).WithField("accountID", acID)
+		log.WithError(err).WithField("account_id", acID)
 		return
 	}
 	mar.mux.RLock()
