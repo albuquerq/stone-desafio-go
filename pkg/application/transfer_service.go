@@ -104,6 +104,13 @@ func (ts *transferService) Transfer(fromID string, toID string, amount int) (tr 
 		Amount:               amount,
 	}
 
+	err = tr.Validate(ts.trCreateValidator)
+	if err != nil {
+		log.WithError(err).Error("transfer create validation fail")
+		tx.Rollback()
+		return
+	}
+
 	err = trRepository.WithTx(tx).Store(&tr)
 	if err != nil {
 		log.WithError(err).Error("failed to store the transfer")
