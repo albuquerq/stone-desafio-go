@@ -30,26 +30,31 @@ func (tv transferCreationValidator) Validate(tr transfer.Transfer) error {
 	})
 
 	if tr.ID == "" {
-		return errors.ErrNoHasUniqueIdentity
+		err := errors.ErrNoHasUniqueIdentity
+		log.WithError(err).Error("missing transfer uuid")
+		return err
 	}
 
 	if tr.AccountOriginID == "" {
-		return errors.ErrTransferMissingData
+		err := errors.ErrTransferMissingData
+		log.WithError(err).Error("missing origin account id")
 	}
 
 	if tr.AccountDestinationID == "" {
-		return errors.ErrTransferMissingData
+		err := errors.ErrTransferMissingData
+		log.WithError(err).Error("missing destination account id")
+		return err
 	}
 
-	if tr.AccountOriginID == tr.AccountOriginID {
+	if tr.AccountOriginID == tr.AccountDestinationID {
 		err := errors.ErrTransferBetweenSameAccount
-		log.WithError(err)
+		log.WithError(err).Error("transfer betwen some account")
 		return err
 	}
 
 	if tr.Amount == 0 {
 		err := errors.ErrTransferMissingAmount
-		log.WithError(err)
+		log.WithError(err).Error("amount not defined")
 		return err
 	}
 
