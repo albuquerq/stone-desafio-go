@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 	"os"
 	"os/signal"
@@ -9,22 +10,28 @@ import (
 
 	"github.com/albuquerq/stone-desafio-go/pkg/application"
 	"github.com/albuquerq/stone-desafio-go/pkg/infraestructure/common"
-	"github.com/albuquerq/stone-desafio-go/pkg/infraestructure/persistence/pgql"
+	"github.com/albuquerq/stone-desafio-go/pkg/infraestructure/config"
+	"github.com/albuquerq/stone-desafio-go/pkg/infraestructure/persistence/psql"
 	"github.com/albuquerq/stone-desafio-go/pkg/presentation/rest"
 	// "github.com/albuquerq/stone-desafio-go/pkg/infraestructure/persistence/mem"
 )
 
 func main() {
 
-	const addr = ":8081"
+	cfg, err := config.FromEnv()
+	if err != nil {
+		common.Logger().WithError(err).Fatal("error on get config values")
+	}
 
-	db, err := pgql.Connect("postgres://teste:senha@172.17.0.2/banking-test?sslmode=disable")
+	var addr = fmt.Sprintf(":%s", cfg.Port)
+
+	db, err := psql.Connect(psql.URLFromConfig(cfg))
 	if err != nil {
 		common.Logger().Fatal(err)
 	}
 
 	//appRegistry := application.NewRegistry(mem.NewRepositoryRegistry())
-	appRegistry := application.NewRegistry(pgql.NewRepositoryRegistry(db))
+	appRegistry := application.NewRegistry(psql.NewRepositoryRegistry(db))
 
 	handler := rest.New(appRegistry)
 
