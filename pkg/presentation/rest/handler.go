@@ -41,7 +41,7 @@ func (h *Handler) WrapControl(fn func(w http.ResponseWriter, r *http.Request) Re
 
 		resp := fn(w, r)
 
-		w.Header().Set("content-type", "application/json")
+		w.Header().Set("Content-Type", "application/json")
 
 		if resp.Error != nil {
 			w.WriteHeader(resp.Error.Code)
