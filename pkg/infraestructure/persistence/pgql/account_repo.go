@@ -219,7 +219,6 @@ func (pgacr *pgAccountRepo) ListAll() (accounts []account.Account, err error) {
 			id,
 			name,
 			cpf,
-			secret,
 			balance,
 			created_at
 		FROM
@@ -246,7 +245,6 @@ func (pgacr *pgAccountRepo) ListAll() (accounts []account.Account, err error) {
 			&ac.ID,
 			&ac.Name,
 			&ac.CPF,
-			&ac.Secret,
 			&ac.Balance,
 			&ac.CreatedAt,
 		)
