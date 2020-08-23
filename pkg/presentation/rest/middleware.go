@@ -9,7 +9,6 @@ import (
 	"github.com/dgrijalva/jwt-go"
 
 	"github.com/albuquerq/stone-desafio-go/pkg/domain/access"
-	"github.com/albuquerq/stone-desafio-go/pkg/infraestructure/common"
 	"github.com/albuquerq/stone-desafio-go/pkg/presentation/rest/contextkey"
 )
 
@@ -76,15 +75,12 @@ func AccountAccessCtxMiddleware(next http.Handler) http.Handler {
 		}
 
 		if claims, ok := token.Claims.(jwt.MapClaims); ok && token.Valid {
-			common.Logger().Info(claims)
 
 			descr := access.Description{}
 
 			descr.AccountID = claims["account_id"].(string)
 			descr.CPF = claims["account_cpf"].(string)
 			descr.Name = claims["account_name"].(string)
-
-			common.Logger().Info(descr)
 
 			r = r.WithContext(context.WithValue(r.Context(), contextkey.AccountDescription, descr))
 
