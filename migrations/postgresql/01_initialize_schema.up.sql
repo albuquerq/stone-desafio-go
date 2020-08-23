@@ -13,6 +13,6 @@ CREATE TABLE IF NOT EXISTS transfers(
     id UUID PRIMARY KEY,
     account_origin_id UUID REFERENCES accounts (id),
     account_destination_id UUID REFERENCES accounts (id),
-    amount BIGINT NOT NULL CHECK (amount > 0),
+    amount BIGINT NOT NULL CHECK (amount > -1),
     created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT now()
 );
