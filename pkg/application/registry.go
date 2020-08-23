@@ -18,6 +18,7 @@ type registry struct {
 	repoRegistry domain.RepositoryRegistry
 }
 
+// NewRegistry returns a new application registry.
 func NewRegistry(
 	repoRegistry domain.RepositoryRegistry,
 ) domain.Registry {
