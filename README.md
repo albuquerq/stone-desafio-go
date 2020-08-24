@@ -1,5 +1,6 @@
 # Stone Desafio Go
 
+
 Implementa o [desafio de Go da stone](https://gist.github.com/guilhermebr/fb0d5896d76634703d385a4c68b730d8). Foi utilizado o PostgreSQL como banco de dados.
 
 # API
@@ -109,7 +110,7 @@ Response {
             id uuid
             account_origin_id uuid
             account_destination_id uuid
-            amount integer
+            amount integer // Em centavos de real brasileiro (BRL)
             created_at Date
         }
     ]
@@ -141,7 +142,7 @@ Response {
 
 # Como executar
 
-Esse projeto depende da ferramenta [migragte](https://github.com/golang-migrate/migrate) para execução das migrações do banco de dados. Um ambiente docker de execução simples foi elaborado com docker-compose, para executá-lo basta utilizar o arquivo de composição localizado na pasta `deployments`. Assim, clone o repositório e execute os comandos:
+Esse projeto depende da ferramenta [migrate](https://github.com/golang-migrate/migrate) para execução das migrações do banco de dados. Um ambiente docker de execução simples foi elaborado com docker-compose, para executá-lo basta utilizar o arquivo de composição localizado na pasta `deployments`. Assim, clone o repositório e execute os comandos:
 
 
 ```bash
@@ -149,6 +150,5 @@ Esse projeto depende da ferramenta [migragte](https://github.com/golang-migrate/
 > docker-compose up
  ```
 
-        Considerações, docker compose não sincroniza os serviços dependentes de forma a seguir sua integridade. 
-        Desse forma, o serviços de migração e o de api pode não serem executados de maneira a manter as suas integridades.
-        Para diminuir essa possibilidade os serviços utilizam um tempo de espera.
+        Considerações, docker compose não sincroniza os serviços de forma que esses realizem suas operações na sequência orquestrada para manter suas integridades. 
+        Desse forma, o serviços de migração e o de api pode não serem executados no tempo correto, a migração antes da utilização do banco de dados, para o correto funcionamento. Para diminuir essa possibilidade o serviço de API utiliza um tempo de espera, para que o serviço de migração do banco de dados possa executar anteriormente.
