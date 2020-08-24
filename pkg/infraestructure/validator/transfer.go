@@ -52,7 +52,7 @@ func (tv transferCreationValidator) Validate(tr transfer.Transfer) error {
 		return err
 	}
 
-	if tr.Amount == 0 {
+	if tr.Amount <= 0 {
 		err := errors.ErrTransferMissingAmount
 		log.WithError(err).Error("amount not defined")
 		return err

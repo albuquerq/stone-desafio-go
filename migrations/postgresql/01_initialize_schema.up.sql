@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS accounts(
     name VARCHAR(200) NOT NULL,
     cpf VARCHAR(11) NOT NULL UNIQUE,
     secret VARCHAR(200) NOT NULL,
-    balance BIGINT CHECK (balance > 0),
+    balance BIGINT CHECK (balance > -1),
     created_at TIMESTAMP WITHOUT TIME ZONE DEFAULT now()
 );
 

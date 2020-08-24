@@ -85,6 +85,11 @@ func (pgacr *pgAccountRepo) UpdateBalance(ac account.Account) error {
 	result, err := stmt.Exec(ac.Balance, ac.ID)
 	if err != nil {
 		log.WithError(err).Error("error on update balance")
+		if pgerr, ok := err.(*pgconn.PgError); ok {
+			if pgerr.Code == "23514" {
+				err = errors.ErrTransferNotAllowed
+			}
+		}
 		return err
 	}
 
