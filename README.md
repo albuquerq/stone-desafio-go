@@ -1,6 +1,10 @@
 # Stone Desafio Go
 
+<<<<<<< HEAD
 Implementa o [desafio de Go da stone](https://gist.github.com/guilhermebr/fb0d5896d76634703d385a4c68b730d8). Foi utilizado o PostgreSQL como banco de dados.
+=======
+Implementa o [desafio de Go da stone](https://github.com/stone-payments/stoneco-best-practices/blob/master/gitStyleGuide/README_pt.md). Foi utilizado o PostgreSQL como banco de dados.
+>>>>>>> 1ecf8858fe10b54a023599c60cf2e9b7b49dd5a4
 
 
 # API
