@@ -1,5 +1,6 @@
 # Stone Desafio Go
 
+
 Implementa o [desafio de Go da stone](https://gist.github.com/guilhermebr/fb0d5896d76634703d385a4c68b730d8). Foi utilizado o PostgreSQL como banco de dados.
 
 # API
