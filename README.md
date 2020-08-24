@@ -2,7 +2,6 @@
 
 Implementa o [desafio de Go da stone](https://gist.github.com/guilhermebr/fb0d5896d76634703d385a4c68b730d8). Foi utilizado o PostgreSQL como banco de dados.
 
-
 # API
 
 Implementa uma REST API JSON com rotas autenticadas por meio de JWT passadas pelo cabeçalho `Authorization: Bearer <jwt-token>`.
