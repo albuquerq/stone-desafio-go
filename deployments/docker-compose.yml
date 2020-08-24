@@ -1,0 +1,41 @@
+version: '3.4'
+
+
+services:
+  
+  psql:
+    image: postgres
+    environment: 
+      - POSTGRES_DB=banking
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password123
+
+  migrate: 
+    image: migrate/migrate
+    depends_on:
+      - stone-desafio-go
+
+    entrypoint: ["migrate", "-lock-timeout", "60" ,"-path", "/migrations", "-database", "postgres://user:password123@psql/banking?sslmode=disable", "up"]
+    volumes: 
+      - ../migrations/postgresql:/migrations
+
+
+  stone-desafio-go:
+    image: stone-desafio-go
+    depends_on:
+      - psql
+
+    build:
+      context: ../
+      dockerfile: Dockerfile
+    ports:
+      - 8081:80
+
+    environment:
+      - DB_HOST=psql
+      # - DB_PORT=
+      - DB_NAME=banking
+      - DB_PASS=password123
+      - DB_USER=user
+      - JWT_SECRET=dsfjhehuiha31*u9jwqcjhjr3489814987*
+      # - PORT = "" # Default is 80

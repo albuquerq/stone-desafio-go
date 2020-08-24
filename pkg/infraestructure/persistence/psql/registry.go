@@ -3,6 +3,7 @@ package psql
 import (
 	"database/sql"
 	"database/sql/driver"
+	"time"
 
 	_ "github.com/jackc/pgx/v4/stdlib" // register postgresql driver for sql standard lib.
 	"github.com/sirupsen/logrus"
@@ -24,6 +25,8 @@ func Connect(conStr string) (*sql.DB, error) {
 	if err != nil {
 		return db, err
 	}
+
+	time.Sleep(8 * time.Second) // waits for the docker-compose to configure the database.
 
 	err = db.PingContext(getContext())
 	if err != nil {
