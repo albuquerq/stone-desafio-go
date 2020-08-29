@@ -275,6 +275,8 @@ func (h *Handler) TransferCreate(w http.ResponseWriter, r *http.Request) (resp R
 		return
 	}
 
+	w.WriteHeader(http.StatusCreated)
+
 	resp.Value = tr
 
 	return

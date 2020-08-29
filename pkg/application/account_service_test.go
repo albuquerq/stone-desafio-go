@@ -29,7 +29,7 @@ func TestAccountService(t *testing.T) {
 	ac := account.Account{
 		ID:      repoRegistry.AccountRepository().GenerateIdentifier(),
 		CPF:     "00000000000",
-		Name:    "Jon Due",
+		Name:    "Jhon Doe",
 		Balance: 100,
 		Secret:  "some secret",
 	}

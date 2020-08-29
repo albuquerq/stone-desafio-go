@@ -29,7 +29,7 @@ var passStoreTestCases = []testCaseSingle{
 		Case: "Valid account",
 		In: account.Account{
 			ID:      common.GenUUID(),
-			Name:    "Jon Due",
+			Name:    "Jhon Doe",
 			Balance: 0,
 			CPF:     "00000000003",
 			Secret:  "a secret",
@@ -40,7 +40,7 @@ var passStoreTestCases = []testCaseSingle{
 		Case: "With the CreatedAt field defined, it ignores and replaces by insertion time",
 		In: account.Account{
 			ID:        common.GenUUID(),
-			Name:      "Jon Due 2",
+			Name:      "Jhon Doe 2",
 			Balance:   0,
 			CPF:       "00000004000",
 			Secret:    "a secret",
@@ -54,7 +54,7 @@ var failsStoreTestCases = []testCaseSingle{
 	{
 		Case: "ID not defined",
 		In: account.Account{
-			Name:    "Jon Due 3",
+			Name:    "Jhon Doe 3",
 			CPF:     "12345678910",
 			Balance: 1000,
 			Secret:  "a secret",
@@ -65,7 +65,7 @@ var failsStoreTestCases = []testCaseSingle{
 		Case: "Not stored account",
 		In: account.Account{
 			ID:   common.GenUUID(),
-			Name: "Jon Due 5",
+			Name: "Jhon Doe 5",
 		},
 		ExpectedError: errors.ErrAccountNotFound,
 	},
