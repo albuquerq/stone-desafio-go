@@ -1,0 +1,188 @@
+FORMAT: 1A
+HOST: http://localhost:8081/api/v1
+
+
+# Banking
+
+API para gerenciamento de contas e de suas transferências.
+
+# Group Acesso
+
+Realização de login na plataforma para se ter acesso às operações privadas.
+
+## Login [/login]
+
+Métodos de autenticação da API.
+
+### Logar no sistema [POST]
+
+Valida as credenciais de acesso e retorna a JWT. Caso as credencias estejam erradas retorna 401.
+
++ Attributes (object)
+	+ cpf (string, required) - O número de CPF do titular da conta.
+		
+		11 dígitos, somente números.
+
+	+ secret (string, required) - Senha de acesso à conta.
+	
++ Request (application/json)
+
+		{
+			"cpf": "00000000000",
+			"secret": "minha senha super segura"
+		}
+
++ Response 200 (application/json)
+		
+		{
+			"value": {
+				"toke": "jwt-token"
+			}
+		}
+
+
+# Group Contas
+
+Gerenciamento de contas bancárias.
+
+## Contas [/accounts]
+
+Ponto de acesso ao recurso de conta.
+
+### Listar todas as contas cadastradas [GET]
+
+Lista todas as contas cadastradas no sistema.
+
++ Response 200 (application/json)
+	
+		{
+			"value": [
+				{
+					"id": "valid-UUID",
+					"name": "Jhon Doe",
+					"cpf": "00000000000",
+					"balance": 0,
+					"created_at": "2020-08-28T18:13:00.000Z"
+				}
+			]
+		}
+
+### Criar uma nova conta [POST]
+
+Essa ação recebe um objeto JSON com os campos requeridos para a criação de uma nova conta.
+
++ Attributes (object)
+	+ name (string, required) - O nome do titular da conta.
+	+ cpf (string, required) - O CPF do titular da conta contendo somente dígitos, comprimento 11.
+	+ balance: 0 (number, optional) - O saldo inicial da conta em centavos de real brasileiro (BRL), número **inteiro**.
+
+		Um número inteiro maior que zero.
+	
+	+ secret (string, required) - A senha de acesso à conta, é importante por uma senha segura.
+
++ Request (application/json)
+
+		{
+			"name": "Jhon Doe",
+			"cpf": "00000000000",
+			"balance": 100,
+			"secret": "minha senha super segura"
+		}
+
++ Response 201 (application/json)
+		
+		{
+			"value": {
+				"id": "UUID-account",
+				"name": "Jhon Doe",
+				"cpf": "00000000000",
+				"balance": 100,
+				"created_at": "2020-08-28T18:13:00.000Z"
+			}
+		}
+
+## Saldo [/accounts/{account_id}/balance]
+
+Representa o saldo atual da conta em centavos de real brasileiro (BRL).
+
++ Parameters
+	+ account_id (string, required) - ID da conta da qual se quer obter o saldo.
+		
+		É importante que seja um UUID válido de uma conta existente, caso contrário
+		será retornado 404.
+
+### Saldo da conta [GET]
+
++ Response 200 (application/json)
+
+		{
+			"value": {
+				"balance": 100
+			}
+		}
+
+# Group Transferências
+
+Gerencia operações de consultas e criação de transferências entre as contas.
+
+## Transferências [/transfers]
+
+Transferências realizadas por uma conta.
+
+### Realizar transferência [POST]
+
+Essa operação recebe um objeto JSON com os dados necessários para realizar a transferência entre as contas.
+A conta de origem é obtida com base na chave de autenticação JWT enviada na requisição.
+
++ Attributes (object)
+	+ account_destination_id (string, required) - UUID da conta que receberá o valor a ser transferido.
+	+ amount (number, required) - O valor em centavos de real brasileiro (BRL) a ser transferido. Número **inteiro**.
+
++ Request
+	+ Headers:
+
+				Authentication: Bearer <token>
+	
+	+ Body
+	
+			{
+				"account_destination_id": "UUID-destination",
+				"amount": 100
+			}
+
++ Response 201
+
+		{
+			"value": {
+				"id": "UUID-transfer"
+				"account_origin_id": "UUID-origin",
+				"account_destination_id": "UUID-destination",
+				"amount": 100,
+				"created_at": "2020-08-28T18:13:00.000Z"
+			}
+		}
+
+
+### Listar transferências da conta logada [GET]
+
++ Request
+	+ Headers
+		
+			Authentication: Bearer <jwt-token>
+
++ Response 200 (application/json)
+
+		{
+			"value": [
+				{
+					"id": "UUID",
+					"account_origin_id": "UUID da conta de origem",
+					"account_destination_id": "UUID da conta destino",
+					"amount": 100,
+					"created_at": "2020-08-28T18:13:00.000Z"
+				}
+			]
+		}
+
+
+
