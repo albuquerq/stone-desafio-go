@@ -7,7 +7,7 @@ Implementa o [desafio de Go da stone](https://gist.github.com/guilhermebr/fb0d58
 
 Implementa uma REST API JSON com rotas autenticadas por meio de JWT passadas pelo cabeçalho `Authorization: Bearer <jwt-token>`.
 
-Metódo | Rota | JWT | Função
+Método | Rota | JWT | Função
 --:|--|:--:|--
 POST | /api/v1/login | - | Autentica utilizando CPF e Secret da conta, retornando JWT para acesso de rotas privadas.
 GET  | /api/v1/accounts | - | Retorna todas contas cadastradas.
